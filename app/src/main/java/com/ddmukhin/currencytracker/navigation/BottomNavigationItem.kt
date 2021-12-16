@@ -1,8 +1,11 @@
 package com.ddmukhin.currencytracker.navigation
 
-sealed class BottomNavigationItem(val route: String, val title: String, val seleted: Boolean) {
+import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
+import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 
-    object Popular : BottomNavigationItem("popular", "Популярные", true)
-    object Favorites : BottomNavigationItem("favorites", "Избрынные", false)
+sealed class BottomNavigationItem(val route: String, val title: String) {
+
+    object Popular : BottomNavigationItem(PopularScreenSpec.route, "Популярные")
+    object Favorites : BottomNavigationItem(FavoritesScreenSpec.route, "Избранное")
 
 }
