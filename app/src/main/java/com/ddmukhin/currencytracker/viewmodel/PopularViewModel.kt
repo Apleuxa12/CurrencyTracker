@@ -7,9 +7,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
 @HiltViewModel
-class PopularViewModel : ViewModel(), ViewModelContract<PopularCurrencyState> {
+class PopularViewModel @Inject constructor() : ViewModel(), ViewModelContract<PopularCurrencyState> {
 
     private val _state = MutableStateFlow(PopularCurrencyState.Loading)
 
@@ -17,7 +18,7 @@ class PopularViewModel : ViewModel(), ViewModelContract<PopularCurrencyState> {
 
     fun setGlobalCurrency(currencyItem: CurrencyItem){
 
-
+        
 
     }
 

@@ -9,13 +9,12 @@ import androidx.navigation.compose.rememberNavController
 import com.ddmukhin.currencytracker.navigation.bottom.BottomNavigationBar
 import com.ddmukhin.currencytracker.navigation.NavigationGraph
 import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
+import com.ddmukhin.currencytracker.viewmodel.FavoritesViewModel
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    val popularViewModel by viewModels<PopularViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,6 +5,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
 import com.ddmukhin.currencytracker.navigation.spec.ScreenSpec
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 
