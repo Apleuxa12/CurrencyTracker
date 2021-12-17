@@ -1,5 +1,20 @@
 package com.ddmukhin.currencytracker.ui.model
 
+val testSortItem = SortItem(
+    name = "по Алфавиту",
+    type = SortType.Alphabet,
+    subItems = listOf(
+        SortSubItem(
+            name = "по убыванию",
+            type = SortSubType.Up()
+        ),
+        SortSubItem(
+            name = "по возрастанию",
+            type = SortSubType.Down()
+        )
+    )
+)
+
 fun <T : Comparable<T>> List<CurrencyItem>.sorted(item: SortItem<T>): List<CurrencyItem> =
     this.sortedWith { a, b ->
         item.subItems.find { it.isSelected }?.type?.comparator?.let { compareTo ->
