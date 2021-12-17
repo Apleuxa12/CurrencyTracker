@@ -6,4 +6,6 @@ interface CurrencyRepository {
 
     suspend fun getLatestCurrencies(base: String, symbols: List<String>): List<CurrencyItem>
 
+    suspend fun getSymbolText(base: String): String
+
 }

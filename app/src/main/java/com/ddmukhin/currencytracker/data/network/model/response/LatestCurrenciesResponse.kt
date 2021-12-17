@@ -1,7 +1,7 @@
 package com.ddmukhin.currencytracker.data.network.model.response
 
-import com.ddmukhin.currencytracker.data.network.model.base.BaseError
-import com.ddmukhin.currencytracker.data.network.model.base.BaseSuccess
+import com.ddmukhin.currencytracker.data.network.model.response.base.BaseError
+import com.ddmukhin.currencytracker.data.network.model.response.base.BaseSuccess
 
 data class LatestCurrenciesResponse(
 
@@ -15,6 +15,6 @@ data class LatestCurrenciesResponse(
 
     val date: String,
 
-    val rates: List<CurrencyItemResponse>
+    val values: Map<String, Double>
 
 ) : BaseSuccess
