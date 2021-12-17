@@ -60,7 +60,6 @@ class PopularViewModel @Inject constructor(
                         )
                     )
                 }
-                result.updateFavorites()
 
                 _state.value = PopularCurrencyState.Success(
                     currentCurrencyItem = currencyItem,
@@ -71,8 +70,8 @@ class PopularViewModel @Inject constructor(
 
     }
 
-    private fun List<CurrencyItem>.updateFavorites(){
-
+    fun updateFavorites(){
+//        need integration with persistence
     }
 
 }

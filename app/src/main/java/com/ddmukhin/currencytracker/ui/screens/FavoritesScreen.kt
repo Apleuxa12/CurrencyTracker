@@ -6,15 +6,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 import com.ddmukhin.currencytracker.viewmodel.FavoritesViewModel
+import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 
 @Composable
-fun FavoritesScreen(navController: NavController, viewModel: FavoritesViewModel = hiltViewModel()) {
-    Text(
-        text = "FAVORITES",
-        modifier = Modifier.clickable { navController.navigate(PopularScreenSpec.route) },
-        style = MaterialTheme.typography.h2
-    )
+fun FavoritesScreen(
+    navController: NavController,
+    currentViewModel: FavoritesViewModel = hiltViewModel(),
+    sortViewModel: SortViewModel = hiltViewModel()
+) {
+
 }
