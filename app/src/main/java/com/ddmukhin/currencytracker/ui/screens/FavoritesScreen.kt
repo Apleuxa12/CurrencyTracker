@@ -1,4 +1,4 @@
-package com.ddmukhin.currencytracker.screens
+package com.ddmukhin.currencytracker.ui.screens
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.MaterialTheme
@@ -10,5 +10,9 @@ import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 
 @Composable
 fun FavoritesScreen(navController: NavController) {
-
+    Text(
+        text = "FAVORITES",
+        modifier = Modifier.clickable { navController.navigate(PopularScreenSpec.route) },
+        style = MaterialTheme.typography.h2
+    )
 }

@@ -1,4 +1,4 @@
-package com.ddmukhin.currencytracker.navigation
+package com.ddmukhin.currencytracker.navigation.bottom
 
 import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
 import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec

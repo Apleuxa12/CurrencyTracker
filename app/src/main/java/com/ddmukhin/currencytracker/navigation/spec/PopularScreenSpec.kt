@@ -3,7 +3,7 @@ package com.ddmukhin.currencytracker.navigation.spec
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
-import com.ddmukhin.currencytracker.screens.PopularScreen
+import com.ddmukhin.currencytracker.ui.screens.PopularScreen
 
 object PopularScreenSpec : ScreenSpec {
     override val route = "popular"
