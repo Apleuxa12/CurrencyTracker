@@ -9,6 +9,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
 import com.ddmukhin.currencytracker.ui.model.SortItem
+import com.ddmukhin.currencytracker.ui.model.SortSubItem
+import com.ddmukhin.currencytracker.ui.model.SortSubType
+import com.ddmukhin.currencytracker.ui.model.SortType
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 

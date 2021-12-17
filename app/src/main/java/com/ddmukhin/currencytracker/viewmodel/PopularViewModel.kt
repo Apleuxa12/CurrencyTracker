@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.ddmukhin.currencytracker.data.network.CurrencyRepository
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 import com.ddmukhin.currencytracker.ui.model.SortItem
+import com.ddmukhin.currencytracker.ui.model.sorted
 import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -23,7 +24,13 @@ class PopularViewModel @Inject constructor(
     override val state: StateFlow<PopularCurrencyState> = _state.asStateFlow()
 
     fun <T : Comparable<T>> applySort(sortItem: SortItem<T>){
+        if(_state.value !is PopularCurrencyState.Success)
+            return
+        val current = _state.value as PopularCurrencyState.Success
 
+        _state.value = PopularCurrencyState.Loading
+
+        _state.value = current.copy(popularCurrencies = current.popularCurrencies.sorted(sortItem))
     }
 
     fun setGlobalCurrency(currencyItem: CurrencyItem){

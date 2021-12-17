@@ -19,8 +19,8 @@ import javax.inject.Singleton
 class RemoteModule {
 
     companion object{
-        const val BASE_URL = ""
-        const val API_KEY = ""
+        const val BASE_URL = "http://api.exchangeratesapi.io"
+        const val API_KEY = "35fc0c1c0a771204f710e1de165edadf"
     }
 
     @Provides
