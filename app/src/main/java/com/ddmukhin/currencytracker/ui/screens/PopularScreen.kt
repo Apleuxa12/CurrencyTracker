@@ -8,16 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
+import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun PopularScreen(navController: NavController) {
+fun PopularScreen(navController: NavController, viewModel: PopularViewModel = viewModel()) {
     Text(
         text = "POPULAR",
         modifier = Modifier.clickable { navController.navigate(FavoritesScreenSpec.route) },
         style = MaterialTheme.typography.h2
     )
-
-    val list = listOf<CurrencyItem>()
-
-    list.sortedWith { p0, p1 -> TODO("Not yet implemented") }
 }

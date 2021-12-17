@@ -7,7 +7,6 @@ fun <T : Comparable<T>> List<CurrencyItem>.sorted(item: SortItem<T>): List<Curre
         } ?: 0
     }
 
-
 data class SortItem<T : Comparable<T>>(
     val name: String,
     val type: SortType<T>,

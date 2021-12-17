@@ -1,6 +1,7 @@
 package com.ddmukhin.currencytracker.navigation.spec
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
