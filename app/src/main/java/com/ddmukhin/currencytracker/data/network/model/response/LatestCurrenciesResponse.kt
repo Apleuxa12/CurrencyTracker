@@ -7,14 +7,14 @@ data class LatestCurrenciesResponse(
 
     override val success: Boolean,
 
-    val error: BaseError,
+    val error: BaseError?,
 
-    val timestamp: Int,
+    val timestamp: Int?,
 
-    val base: String,
+    val base: String?,
 
-    val date: String,
+    val date: String?,
 
-    val values: Map<String, Double>
+    val values: Map<String, Double>?
 
 ) : BaseSuccess

@@ -7,8 +7,8 @@ import retrofit2.Response
 
 interface CurrenciesConverter {
 
-    fun latestToUi(response: Response<LatestCurrenciesResponse>): List<CurrencyItem>
+    fun latestToUi(response: Response<LatestCurrenciesResponse>): List<CurrencyItem>?
 
-    fun symbolToText(base: String, symbol: Response<SymbolsResponse>) : String
+    fun symbolToText(base: String, response: Response<SymbolsResponse>) : String?
 
 }

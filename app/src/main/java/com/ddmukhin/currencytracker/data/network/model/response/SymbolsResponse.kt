@@ -6,6 +6,6 @@ data class SymbolsResponse(
 
     override val success: Boolean,
 
-    val symbols: Map<String, String>
+    val symbols: Map<String, String>?
 
 ) : BaseSuccess
