@@ -2,8 +2,8 @@ package com.ddmukhin.currencytracker.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.ddmukhin.currencytracker.data.network.CurrencyRepository
+import arrow.core.Either
+import com.ddmukhin.currencytracker.data.remote.CurrencyRepository
 import com.ddmukhin.currencytracker.data.persistence.PersistenceRepository
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 import com.ddmukhin.currencytracker.utils.getStateAs
@@ -43,11 +43,18 @@ class FavoritesViewModel @Inject constructor(
                     base = globalCurrency.base,
                     symbols = current.list.map { it.base })
 
-                currencies?.let { list ->
-                    current.list.forEach { item ->
-                        item.value = list.find { response ->
-                            response.base == item.base
-                        }?.value ?: 0.0
+                when(currencies){
+                    is Either.Left -> {
+//                        do nothing
+                    }
+                    is Either.Right -> {
+                        currencies.let { list ->
+                            current.list.forEach { item ->
+                                item.value = list.value.find { response ->
+                                    response.base == item.base
+                                }?.value ?: 0.0
+                            }
+                        }
                     }
                 }
 

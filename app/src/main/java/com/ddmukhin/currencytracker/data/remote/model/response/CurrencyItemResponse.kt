@@ -1,4 +1,4 @@
-package com.ddmukhin.currencytracker.data.network.model.response
+package com.ddmukhin.currencytracker.data.remote.model.response
 
 data class CurrencyItemResponse(
 

@@ -12,7 +12,7 @@ class GlobalViewModel : ViewModel(), ViewModelContract<CurrencyItem?> {
 
     override val state: StateFlow<CurrencyItem?> = _state.asStateFlow()
 
-    fun updateGlobalCurrencyItem(item: CurrencyItem){
+    fun updateGlobalCurrencyItem(item: CurrencyItem?){
         _state.value = item
     }
 }

@@ -1,4 +1,4 @@
-package com.ddmukhin.currencytracker.data.network.model.request
+package com.ddmukhin.currencytracker.data.remote.model.request
 
 data class LatestCurrenciesRequest(
 

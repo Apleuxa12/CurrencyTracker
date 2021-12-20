@@ -2,9 +2,12 @@ package com.ddmukhin.currencytracker.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ddmukhin.currencytracker.data.network.CurrencyRepository
+import arrow.core.Either
+import arrow.core.flatMap
+import arrow.core.leftIfNull
+import com.ddmukhin.currencytracker.data.remote.CurrencyRepository
 import com.ddmukhin.currencytracker.data.persistence.PersistenceRepository
-import com.ddmukhin.currencytracker.data.persistence.model.Currency
+import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseError
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 import com.ddmukhin.currencytracker.ui.model.SortItem
 import com.ddmukhin.currencytracker.ui.model.sorted
@@ -28,7 +31,6 @@ class PopularViewModel @Inject constructor(
     override val state: StateFlow<PopularCurrencyState> = _state.asStateFlow()
 
     fun <T : Comparable<T>> applySort(sortItem: SortItem<T>) {
-
         _state.getStateAsSuccess()?.let { current ->
             _state.value = PopularCurrencyState.Loading
 
@@ -49,24 +51,27 @@ class PopularViewModel @Inject constructor(
                 base = currencyItem.name
             )
 
-            if (response == null) {
-                _state.value = PopularCurrencyState.Error("Ошибка")
-            } else {
-                val result = mutableListOf<CurrencyItem>()
-
-                val texts = textsResponse.await()
-
-                response.forEach {
-                    result.add(
+            val mappedResponse = textsResponse.await().flatMap { map ->
+                response.map {
+                    it.map { response ->
                         CurrencyItem(
-                            name = texts?.get(it.base) ?: "",
-                            base = it.base,
-                            value = it.value
+                            name = map[response.base] ?: response.base,
+                            base = response.base,
+                            value = response.value
                         )
-                    )
+                    }
+                }
+            }
+
+            when(mappedResponse){
+                is Either.Left -> {
+                    _state.value =
+                        PopularCurrencyState.Error("${mappedResponse.value.info}(${mappedResponse.value.code})")
                 }
 
-                _state.value = PopularCurrencyState.Success(result)
+                is Either.Right -> {
+                    _state.value = PopularCurrencyState.Success(mappedResponse.value)
+                }
             }
         }
 

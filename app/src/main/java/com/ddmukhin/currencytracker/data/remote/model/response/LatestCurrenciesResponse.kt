@@ -1,7 +1,7 @@
-package com.ddmukhin.currencytracker.data.network.model.response
+package com.ddmukhin.currencytracker.data.remote.model.response
 
-import com.ddmukhin.currencytracker.data.network.model.response.base.BaseError
-import com.ddmukhin.currencytracker.data.network.model.response.base.BaseSuccess
+import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseError
+import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseSuccess
 
 data class LatestCurrenciesResponse(
 

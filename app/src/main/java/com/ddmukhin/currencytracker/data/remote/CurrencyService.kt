@@ -1,7 +1,7 @@
-package com.ddmukhin.currencytracker.data.network
+package com.ddmukhin.currencytracker.data.remote
 
-import com.ddmukhin.currencytracker.data.network.model.response.LatestCurrenciesResponse
-import com.ddmukhin.currencytracker.data.network.model.response.SymbolsResponse
+import com.ddmukhin.currencytracker.data.remote.model.response.LatestCurrenciesResponse
+import com.ddmukhin.currencytracker.data.remote.model.response.SymbolsResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

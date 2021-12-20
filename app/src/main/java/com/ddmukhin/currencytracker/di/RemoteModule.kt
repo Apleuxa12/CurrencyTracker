@@ -2,8 +2,7 @@ package com.ddmukhin.currencytracker.di
 
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
 import com.ddmukhin.currencytracker.converter.CurrenciesConverterImpl
-import com.ddmukhin.currencytracker.data.network.CurrencyService
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.ddmukhin.currencytracker.data.remote.CurrencyService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
