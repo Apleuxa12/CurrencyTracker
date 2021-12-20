@@ -2,12 +2,12 @@ package com.ddmukhin.currencytracker.data.remote
 
 import arrow.core.Either
 import com.ddmukhin.currencytracker.data.remote.model.response.CurrencyItemResponse
-import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseError
+import com.ddmukhin.currencytracker.ui.model.ErrorItem
 
 interface CurrencyRepository {
 
-    suspend fun getLatestCurrencies(base: String, symbols: List<String> = listOf()): Either<BaseError, List<CurrencyItemResponse>>
+    suspend fun getLatestCurrencies(base: String, symbols: List<String> = listOf()): Either<ErrorItem, List<CurrencyItemResponse>>
 
-    suspend fun getSymbolTexts(): Either<BaseError, Map<String, String>>
+    suspend fun getSymbolTexts(): Either<ErrorItem, Map<String, String>>
 
 }

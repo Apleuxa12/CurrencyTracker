@@ -1,4 +1,4 @@
-package com.ddmukhin.currencytracker.data.persistence
+package com.ddmukhin.currencytracker.data.persistence.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

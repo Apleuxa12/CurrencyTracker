@@ -63,13 +63,7 @@ class PopularViewModel @Inject constructor(
 
             when(mappedResponse){
                 is Either.Left -> {
-                    var msg = mappedResponse.value.info ?: ""
-
-                    msg += mappedResponse.value.code?.let {
-                        "($it)"
-                    }
-
-                    _state.value = PopularCurrencyState.Error(msg)
+                    _state.value = PopularCurrencyState.Error(mappedResponse.value.message)
                 }
 
                 is Either.Right -> {

@@ -1,7 +1,8 @@
-package com.ddmukhin.currencytracker.data.persistence
+package com.ddmukhin.currencytracker.data.persistence.impl
 
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
-import com.ddmukhin.currencytracker.data.persistence.model.Currency
+import com.ddmukhin.currencytracker.data.persistence.dao.CurrencyDao
+import com.ddmukhin.currencytracker.data.persistence.PersistenceRepository
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 
 class PersistenceRepositoryImpl(

@@ -1,9 +1,9 @@
 package com.ddmukhin.currencytracker.di
 
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
-import com.ddmukhin.currencytracker.converter.CurrenciesConverterImpl
+import com.ddmukhin.currencytracker.converter.impl.CurrenciesConverterImpl
 import com.ddmukhin.currencytracker.converter.ErrorConverter
-import com.ddmukhin.currencytracker.converter.ErrorConverterImpl
+import com.ddmukhin.currencytracker.converter.impl.ErrorConverterImpl
 import com.ddmukhin.currencytracker.data.remote.CurrencyService
 import dagger.Module
 import dagger.Provides
@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class RemoteModule {
 
-    companion object{
+    companion object {
         const val BASE_URL = "http://api.exchangeratesapi.io"
         const val API_KEY = "35fc0c1c0a771204f710e1de165edadf"
     }
@@ -50,10 +50,12 @@ class RemoteModule {
 
     @Provides
     @Singleton
-    fun provideService(retrofit: Retrofit): CurrencyService = retrofit.create(CurrencyService::class.java)
+    fun provideService(retrofit: Retrofit): CurrencyService =
+        retrofit.create(CurrencyService::class.java)
 
     @Provides
-    fun provideCurrenciesConverter(): CurrenciesConverter = CurrenciesConverterImpl
+    fun provideCurrenciesConverter(errorConverter: ErrorConverter): CurrenciesConverter =
+        CurrenciesConverterImpl(errorConverter)
 
     @Provides
     fun provideErrorConverter(): ErrorConverter = ErrorConverterImpl

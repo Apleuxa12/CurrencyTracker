@@ -3,11 +3,11 @@ package com.ddmukhin.currencytracker.di
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
 import com.ddmukhin.currencytracker.converter.ErrorConverter
 import com.ddmukhin.currencytracker.data.remote.CurrencyRepository
-import com.ddmukhin.currencytracker.data.remote.CurrencyRepositoryImpl
+import com.ddmukhin.currencytracker.data.remote.impl.CurrencyRepositoryImpl
 import com.ddmukhin.currencytracker.data.remote.CurrencyService
-import com.ddmukhin.currencytracker.data.persistence.CurrencyDao
+import com.ddmukhin.currencytracker.data.persistence.dao.CurrencyDao
 import com.ddmukhin.currencytracker.data.persistence.PersistenceRepository
-import com.ddmukhin.currencytracker.data.persistence.PersistenceRepositoryImpl
+import com.ddmukhin.currencytracker.data.persistence.impl.PersistenceRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

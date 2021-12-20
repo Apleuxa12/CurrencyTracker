@@ -3,7 +3,7 @@ package com.ddmukhin.currencytracker.di
 import android.content.Context
 import androidx.room.Room
 import com.ddmukhin.currencytracker.data.persistence.AppDataBase
-import com.ddmukhin.currencytracker.data.persistence.CurrencyDao
+import com.ddmukhin.currencytracker.data.persistence.dao.CurrencyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
