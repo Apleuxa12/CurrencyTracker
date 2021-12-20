@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 import com.ddmukhin.currencytracker.viewmodel.FavoritesViewModel
+import com.ddmukhin.currencytracker.viewmodel.GlobalViewModel
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 
@@ -17,8 +18,8 @@ import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 fun FavoritesScreen(
     navController: NavController,
     favoritesViewModel: FavoritesViewModel = hiltViewModel(),
-    sortViewModel: SortViewModel = hiltViewModel(),
-    popularViewModel: PopularViewModel = hiltViewModel()
+    globalViewModel: GlobalViewModel = hiltViewModel(),
+    sortViewModel: SortViewModel = hiltViewModel()
 ) {
 
 }

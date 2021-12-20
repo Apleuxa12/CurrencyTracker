@@ -6,7 +6,6 @@ sealed class PopularCurrencyState{
     object Loading : PopularCurrencyState()
     data class Error(val errorMessage: String) : PopularCurrencyState()
     data class Success(
-        val currentCurrencyItem: CurrencyItem,
         val popularCurrencies: List<CurrencyItem>
     ) : PopularCurrencyState()
 }

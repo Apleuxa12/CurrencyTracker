@@ -37,7 +37,7 @@ class PopularViewModel @Inject constructor(
         }
     }
 
-    fun setGlobalCurrency(currencyItem: CurrencyItem) {
+    fun updateWithGlobalCurrencyItem(currencyItem: CurrencyItem) {
         _state.value = PopularCurrencyState.Loading
 
         val textsResponse = viewModelScope.async {
@@ -66,10 +66,7 @@ class PopularViewModel @Inject constructor(
                     )
                 }
 
-                _state.value = PopularCurrencyState.Success(
-                    currentCurrencyItem = currencyItem,
-                    popularCurrencies = result
-                )
+                _state.value = PopularCurrencyState.Success(result)
             }
         }
 

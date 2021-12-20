@@ -13,6 +13,7 @@ import com.ddmukhin.currencytracker.ui.model.SortItem
 import com.ddmukhin.currencytracker.ui.model.SortSubItem
 import com.ddmukhin.currencytracker.ui.model.SortSubType
 import com.ddmukhin.currencytracker.ui.model.SortType
+import com.ddmukhin.currencytracker.viewmodel.GlobalViewModel
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
@@ -21,6 +22,7 @@ import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 fun PopularScreen(
     navController: NavController,
     popularViewModel: PopularViewModel = hiltViewModel(),
+    globalViewModel: GlobalViewModel = hiltViewModel(),
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
 
