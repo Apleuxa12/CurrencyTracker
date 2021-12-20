@@ -56,6 +56,7 @@ class PopularViewModel @Inject constructor(
                     result.add(
                         CurrencyItem(
                             name = texts?.get(it.base) ?: "",
+                            base = it.base,
                             value = it.value
                         )
                     )

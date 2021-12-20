@@ -5,12 +5,16 @@ import com.ddmukhin.currencytracker.ui.model.SortItem
 import com.ddmukhin.currencytracker.ui.model.SortSubItem
 import com.ddmukhin.currencytracker.ui.model.SortSubType
 import com.ddmukhin.currencytracker.ui.model.SortType
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
 
-class SortViewModel(
-    list: List<SortItem<*>> = listOf(
+@HiltViewModel
+class SortViewModel @Inject constructor() : ViewModel(), ViewModelContract<List<SortItem<*>>> {
+
+    private val initialList = listOf(
         SortItem(
             id = 0,
             name = "по алфавиту",
@@ -19,12 +23,12 @@ class SortViewModel(
                 SortSubItem(
                     0,
                     name = "по убыванию",
-                    type = SortSubType.Up()
+                    type = SortSubType.Down()
                 ),
                 SortSubItem(
                     1,
                     name = "по возрастанию",
-                    type = SortSubType.Down()
+                    type = SortSubType.Up()
                 )
             )
         ),
@@ -36,19 +40,18 @@ class SortViewModel(
                 SortSubItem(
                     0,
                     name = "по убыванию",
-                    type = SortSubType.Up()
+                    type = SortSubType.Down()
                 ),
                 SortSubItem(
                     1,
                     name = "по возрастанию",
-                    type = SortSubType.Down()
+                    type = SortSubType.Up()
                 )
             )
         )
     )
-) : ViewModel(), ViewModelContract<List<SortItem<*>>> {
 
-    private val _state = MutableStateFlow(list)
+    private val _state = MutableStateFlow(initialList)
 
     override val state: StateFlow<List<SortItem<*>>> = _state.asStateFlow()
 

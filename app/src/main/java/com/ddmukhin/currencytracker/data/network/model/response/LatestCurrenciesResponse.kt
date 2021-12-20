@@ -15,6 +15,6 @@ data class LatestCurrenciesResponse(
 
     val date: String?,
 
-    val values: Map<String, Double>?
+    val values: Map<String?, Double?>?
 
 ) : BaseSuccess

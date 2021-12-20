@@ -3,6 +3,7 @@ package com.ddmukhin.currencytracker.converter
 import com.ddmukhin.currencytracker.data.network.model.response.CurrencyItemResponse
 import com.ddmukhin.currencytracker.data.network.model.response.LatestCurrenciesResponse
 import com.ddmukhin.currencytracker.data.network.model.response.SymbolsResponse
+import com.ddmukhin.currencytracker.data.persistence.model.Currency
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 import retrofit2.Response
 
@@ -20,10 +21,10 @@ object CurrenciesConverterImpl : CurrenciesConverter {
 
         val result = mutableListOf<CurrencyItemResponse>()
 
-        body.values.forEach {
+        body.values.filter { it.key != null && it.value != null }.forEach {
             result.add(CurrencyItemResponse(
-                base = it.key,
-                value = it.value
+                base = it.key!!,
+                value = it.value!!
             ))
         }
 
@@ -40,4 +41,8 @@ object CurrenciesConverterImpl : CurrenciesConverter {
 
         return body.symbols
     }
+
+    override fun uiToDatabase(item: CurrencyItem) = Currency(item.base, item.name, item.value)
+
+    override fun databaseToUi(currency: Currency) = CurrencyItem(currency.name, currency.base, currency.value, isFavorite = true)
 }

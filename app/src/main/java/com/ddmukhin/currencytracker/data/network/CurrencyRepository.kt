@@ -1,7 +1,6 @@
 package com.ddmukhin.currencytracker.data.network
 
 import com.ddmukhin.currencytracker.data.network.model.response.CurrencyItemResponse
-import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 
 interface CurrencyRepository {
 

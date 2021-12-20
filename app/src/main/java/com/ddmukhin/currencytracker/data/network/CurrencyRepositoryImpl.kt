@@ -2,7 +2,6 @@ package com.ddmukhin.currencytracker.data.network
 
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
 import com.ddmukhin.currencytracker.data.network.model.response.CurrencyItemResponse
-import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 
 class CurrencyRepositoryImpl(
     private val currencyService: CurrencyService,
