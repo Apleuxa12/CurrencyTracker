@@ -2,6 +2,8 @@ package com.ddmukhin.currencytracker.di
 
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
 import com.ddmukhin.currencytracker.converter.CurrenciesConverterImpl
+import com.ddmukhin.currencytracker.converter.ErrorConverter
+import com.ddmukhin.currencytracker.converter.ErrorConverterImpl
 import com.ddmukhin.currencytracker.data.remote.CurrencyService
 import dagger.Module
 import dagger.Provides
@@ -51,7 +53,9 @@ class RemoteModule {
     fun provideService(retrofit: Retrofit): CurrencyService = retrofit.create(CurrencyService::class.java)
 
     @Provides
-    @Singleton
-    fun provideConverter(): CurrenciesConverter = CurrenciesConverterImpl
+    fun provideCurrenciesConverter(): CurrenciesConverter = CurrenciesConverterImpl
+
+    @Provides
+    fun provideErrorConverter(): ErrorConverter = ErrorConverterImpl
 
 }

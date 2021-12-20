@@ -42,16 +42,14 @@ class PopularViewModel @Inject constructor(
     fun updateWithGlobalCurrencyItem(currencyItem: CurrencyItem) {
         _state.value = PopularCurrencyState.Loading
 
-        val textsResponse = viewModelScope.async {
-            currencyRepository.getSymbolTexts()
-        }
-
         viewModelScope.launch {
             val response = currencyRepository.getLatestCurrencies(
                 base = currencyItem.name
             )
 
-            val mappedResponse = textsResponse.await().flatMap { map ->
+            val textsResponse = currencyRepository.getSymbolTexts()
+
+            val mappedResponse = textsResponse.flatMap { map ->
                 response.map {
                     it.map { response ->
                         CurrencyItem(
@@ -65,8 +63,13 @@ class PopularViewModel @Inject constructor(
 
             when(mappedResponse){
                 is Either.Left -> {
-                    _state.value =
-                        PopularCurrencyState.Error("${mappedResponse.value.info}(${mappedResponse.value.code})")
+                    var msg = mappedResponse.value.info ?: ""
+
+                    msg += mappedResponse.value.code?.let {
+                        "($it)"
+                    }
+
+                    _state.value = PopularCurrencyState.Error(msg)
                 }
 
                 is Either.Right -> {

@@ -1,6 +1,7 @@
 package com.ddmukhin.currencytracker.di
 
 import com.ddmukhin.currencytracker.converter.CurrenciesConverter
+import com.ddmukhin.currencytracker.converter.ErrorConverter
 import com.ddmukhin.currencytracker.data.remote.CurrencyRepository
 import com.ddmukhin.currencytracker.data.remote.CurrencyRepositoryImpl
 import com.ddmukhin.currencytracker.data.remote.CurrencyService
@@ -21,8 +22,9 @@ class AppModule {
     @ViewModelScoped
     fun provideCurrencyRepository(
         currencyService: CurrencyService,
-        currenciesConverter: CurrenciesConverter
-    ): CurrencyRepository = CurrencyRepositoryImpl(currencyService, currenciesConverter)
+        currenciesConverter: CurrenciesConverter,
+        errorConverter: ErrorConverter
+    ): CurrencyRepository = CurrencyRepositoryImpl(currencyService, currenciesConverter, errorConverter)
 
     @Provides
     @ViewModelScoped
