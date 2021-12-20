@@ -8,8 +8,8 @@ class PersistenceRepositoryImpl(
     private val currencyDao: CurrencyDao,
     private val currenciesConverter: CurrenciesConverter
 ) : PersistenceRepository {
-    override suspend fun getAll(): List<Currency> {
-        return currencyDao.getAll()
+    override suspend fun getAll(): List<CurrencyItem> {
+        return currencyDao.getAll().map { currenciesConverter.databaseToUi(it) }
     }
 
     override suspend fun insert(vararg currencies: CurrencyItem) {

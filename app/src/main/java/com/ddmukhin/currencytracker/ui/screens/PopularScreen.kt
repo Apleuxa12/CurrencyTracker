@@ -20,7 +20,7 @@ import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 @Composable
 fun PopularScreen(
     navController: NavController,
-    currentViewModel: PopularViewModel = hiltViewModel(),
+    popularViewModel: PopularViewModel = hiltViewModel(),
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
 

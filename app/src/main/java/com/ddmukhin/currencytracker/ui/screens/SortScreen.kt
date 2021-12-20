@@ -6,6 +6,9 @@ import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 
 @Composable
-fun SortScreen(navController: NavController, currentViewModel: SortViewModel = hiltViewModel()) {
+fun SortScreen(
+    navController: NavController,
+    sortViewModel: SortViewModel = hiltViewModel()
+) {
 
 }

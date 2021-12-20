@@ -8,6 +8,7 @@ import com.ddmukhin.currencytracker.data.persistence.model.Currency
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 import com.ddmukhin.currencytracker.ui.model.SortItem
 import com.ddmukhin.currencytracker.ui.model.sorted
+import com.ddmukhin.currencytracker.utils.getStateAs
 import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
@@ -103,7 +104,4 @@ class PopularViewModel @Inject constructor(
 
     private fun StateFlow<PopularCurrencyState>.getStateAsSuccess() =
         getStateAs<PopularCurrencyState.Success>()
-
-    private inline fun <reified T : PopularCurrencyState> StateFlow<PopularCurrencyState>.getStateAs() =
-        if (this.value !is T) null else this.value as T
 }

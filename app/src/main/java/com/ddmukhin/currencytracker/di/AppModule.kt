@@ -22,7 +22,8 @@ class AppModule {
     ): CurrencyRepository = CurrencyRepositoryImpl(currencyService, currenciesConverter)
 
     fun providePersistenceRepository(
-        currencyDao: CurrencyDao
-    ): PersistenceRepository = PersistenceRepositoryImpl(currencyDao)
+        currencyDao: CurrencyDao,
+        currenciesConverter: CurrenciesConverter
+    ): PersistenceRepository = PersistenceRepositoryImpl(currencyDao, currenciesConverter)
 
 }
