@@ -5,7 +5,7 @@ import com.ddmukhin.currencytracker.ui.model.CurrencyItem
 
 interface PersistenceRepository {
 
-    suspend fun getAll(): List<CurrencyItem>
+    suspend fun getAll(): List<Currency>
 
     suspend fun insert(vararg currencies: CurrencyItem)
 }

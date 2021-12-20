@@ -42,7 +42,7 @@ object CurrenciesConverterImpl : CurrenciesConverter {
         return body.symbols
     }
 
-    override fun uiToDatabase(item: CurrencyItem) = Currency(item.base, item.name, item.value)
+    override fun uiToDatabase(item: CurrencyItem) = Currency(item.base, item.name)
 
-    override fun databaseToUi(currency: Currency) = CurrencyItem(currency.name, currency.base, currency.value, isFavorite = true)
+    override fun databaseToUi(currency: Currency) = CurrencyItem(currency.name, currency.base, isFavorite = true)
 }
