@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,17 +44,15 @@ class FavoritesViewModel @Inject constructor(
                     base = globalCurrency.base,
                     symbols = current.list.map { it.base })
 
-                when(currencies){
+                when (currencies) {
                     is Either.Left -> {
 //                        do nothing
                     }
                     is Either.Right -> {
-                        currencies.let { list ->
-                            current.list.forEach { item ->
-                                item.value = list.value.find { response ->
-                                    response.base == item.base
-                                }?.value ?: 0.0
-                            }
+                        current.list.forEach { item ->
+                            item.value = currencies.value.find { response ->
+                                response.base == item.base
+                            }?.value ?: 0.0
                         }
                     }
                 }
