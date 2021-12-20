@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,16 +31,20 @@ class GlobalViewModel @Inject constructor(
 
     override val state: StateFlow<GlobalCurrencyState> = _state.asStateFlow()
 
+    init{
+        loadInitialCurrencies()
+    }
+
     fun updateGlobalCurrencyItem(globalCurrency: CurrencyItem) {
         _state.value = _state.value.copy(globalCurrency = globalCurrency)
     }
 
-    fun loadInitialCurrencies(){
+    private fun loadInitialCurrencies(){
         viewModelScope.launch {
             val item = _state.value.globalCurrency
 
             val response = currencyRepository.getLatestCurrencies(
-                base = item?.base ?: "EUR"
+                base = item.base
             )
 
             val textsResponse = currencyRepository.getSymbolTexts()

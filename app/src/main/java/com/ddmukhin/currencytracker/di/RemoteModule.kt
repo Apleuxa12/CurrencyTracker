@@ -31,11 +31,11 @@ class RemoteModule {
             .addInterceptor { chain ->
                 val original = chain.request()
                 val url = original.url.newBuilder()
-                    .addQueryParameter("api_key", API_KEY)
+                    .addQueryParameter("access_key", API_KEY)
                     .build()
                 return@addInterceptor chain.proceed(original.newBuilder().url(url).build())
             }
-            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
+            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             .build()
 
     @Provides

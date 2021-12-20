@@ -25,5 +25,5 @@ fun PopularScreen(
     globalViewModel: GlobalViewModel = hiltViewModel(),
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
-
+    GlobalCurrencyScreen(globalViewModel = globalViewModel)
 }

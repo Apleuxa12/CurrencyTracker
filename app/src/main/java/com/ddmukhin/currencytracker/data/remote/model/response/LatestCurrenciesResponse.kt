@@ -2,6 +2,7 @@ package com.ddmukhin.currencytracker.data.remote.model.response
 
 import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseError
 import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseSuccess
+import com.google.gson.annotations.SerializedName
 
 data class LatestCurrenciesResponse(
 
@@ -15,6 +16,7 @@ data class LatestCurrenciesResponse(
 
     val date: String?,
 
+    @field:SerializedName("rates")
     val values: Map<String?, Double?>?
 
 ) : BaseSuccess
