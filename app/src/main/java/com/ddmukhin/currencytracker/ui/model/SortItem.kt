@@ -1,6 +1,5 @@
 package com.ddmukhin.currencytracker.ui.model
 
-
 fun <T : Comparable<T>> List<CurrencyItem>.sorted(item: SortItem<T>): List<CurrencyItem> =
     this.sortedWith { a, b ->
         item.subItems.find { it.isSelected }?.type?.comparator?.let { compareTo ->

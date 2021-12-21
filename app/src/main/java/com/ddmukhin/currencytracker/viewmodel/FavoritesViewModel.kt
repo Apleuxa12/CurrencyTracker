@@ -3,6 +3,7 @@ package com.ddmukhin.currencytracker.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.Either
+import arrow.core.rightIfNotNull
 import com.ddmukhin.currencytracker.data.remote.CurrencyRepository
 import com.ddmukhin.currencytracker.data.persistence.PersistenceRepository
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
@@ -30,22 +31,6 @@ class FavoritesViewModel @Inject constructor(
 
     override val state: StateFlow<FavoritesCurrencyState> = _state.asStateFlow()
 
-    fun loadFavorites() {
-        _state.value = FavoritesCurrencyState.Loading
-
-        viewModelScope.launch {
-            val favorites = persistenceRepository.getAll()
-
-            _state.value = FavoritesCurrencyState.Success(favorites)
-        }
-    }
-
-    fun <T : Comparable<T>> applySort(sortItem: SortItem<T>) {
-        _state.getStateAsSuccess()?.let { current ->
-            _state.value = current.copy(list = current.list.sorted(sortItem))
-        }
-    }
-
     fun removeFromFavorites(item: CurrencyItem){
         _state.getStateAsSuccess()?.let{ current ->
 
@@ -63,29 +48,39 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    fun updateWithGlobalCurrency(globalCurrency: CurrencyItem) {
-        _state.getStateAsSuccess()?.let { current ->
+    fun updateWithGlobalCurrency(globalCurrency: CurrencyItem, sort: List<SortItem<*>>) {
+        _state.value = FavoritesCurrencyState.Loading
 
-            viewModelScope.launch {
-                val currencies = currencyRepository.getLatestCurrencies(
-                    base = globalCurrency.base,
-                    symbols = current.list.map { it.base })
+        viewModelScope.launch {
+            val favorites = persistenceRepository.getAll()
 
-                when (currencies) {
-                    is Either.Left -> {
+            val currencies = currencyRepository.getLatestCurrencies(
+                base = globalCurrency.base
+            )
+
+            when (currencies) {
+                is Either.Left -> {
 //                        do nothing
-                    }
-                    is Either.Right -> {
-                        current.list.forEach { item ->
-                            item.value = currencies.value.find { response ->
-                                response.base == item.base
-                            }?.value ?: 0.0
-                        }
+                }
+                is Either.Right -> {
+                    Timber.d(favorites.toString())
+                    Timber.d(currencies.toString())
+
+                    favorites.forEach { item ->
+                        item.value = currencies.value.find { response ->
+                            response.base == item.base
+                        }?.value ?: 0.0
                     }
                 }
-
-                _state.value = current
             }
+
+            var values = favorites
+
+            sort.forEach {
+                values = values.sorted(it)
+            }
+
+            _state.value = FavoritesCurrencyState.Success(values)
         }
     }
 

@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,21 +31,12 @@ class PopularViewModel @Inject constructor(
 
     override val state: StateFlow<PopularCurrencyState> = _state.asStateFlow()
 
-    fun <T : Comparable<T>> applySort(sortItem: SortItem<T>) {
-        _state.getStateAsSuccess()?.let { current ->
-            _state.value = PopularCurrencyState.Loading
-
-            _state.value =
-                current.copy(popularCurrencies = current.popularCurrencies.sorted(sortItem))
-        }
-    }
-
-    fun updateWithGlobalCurrencyItem(currencyItem: CurrencyItem) {
+    fun updateWithGlobalCurrencyItem(currencyItem: CurrencyItem, sort: List<SortItem<*>>) {
         _state.value = PopularCurrencyState.Loading
 
         viewModelScope.launch {
             val response = currencyRepository.getLatestCurrencies(
-                base = currencyItem.name
+                base = currencyItem.base
             )
 
             val textsResponse = currencyRepository.getSymbolTexts()
@@ -61,28 +53,57 @@ class PopularViewModel @Inject constructor(
                 }
             }
 
-            when(mappedResponse){
+            when (mappedResponse) {
                 is Either.Left -> {
                     _state.value = PopularCurrencyState.Error(mappedResponse.value.message)
                 }
 
                 is Either.Right -> {
-                    _state.value = PopularCurrencyState.Success(mappedResponse.value)
+                    var values = mappedResponse.value
+
+                    sort.forEach {
+                        values = values.sorted(it)
+                    }
+
+                    _state.value = PopularCurrencyState.Success(values)
                 }
             }
         }
 
+        updateFavorites()
     }
 
-    fun addToFavorite(base: String) {
+    fun addToFavorite(item: CurrencyItem) {
+        _state.getStateAsSuccess()?.let { current ->
+            viewModelScope.launch {
+                persistenceRepository.insert(item)
+
+                _state.value = current.copy(
+                    popularCurrencies = current.popularCurrencies.map {
+                        if (it == item)
+                            it.copy(isFavorite = true)
+                        else
+                            it
+                    }
+                )
+            }
+        }
+    }
+
+    fun removeFromFavorites(item: CurrencyItem) {
         _state.getStateAsSuccess()?.let { current ->
 
-            val item = current.popularCurrencies.find { it.base == base }
+            viewModelScope.launch {
+                persistenceRepository.delete(item)
 
-            item?.let {
-                viewModelScope.launch {
-                    persistenceRepository.insert(it)
-                }
+                _state.value = current.copy(
+                    popularCurrencies = current.popularCurrencies.map {
+                        if (it == item)
+                            it.copy(isFavorite = false)
+                        else
+                            it
+                    }
+                )
             }
         }
     }

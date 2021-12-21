@@ -28,13 +28,13 @@ fun FavoritesScreen(
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
     val favorites by favoritesViewModel.state.collectAsState()
-    val sortState by sortViewModel.state.collectAsState()
+    val globalCurrency by globalViewModel.state.collectAsState()
+    val sort by sortViewModel.state.collectAsState()
 
-    sortState.list.forEach {
-        favoritesViewModel.applySort(it)
-    }
-
-    favoritesViewModel.loadFavorites()
+    favoritesViewModel.updateWithGlobalCurrency(
+        globalCurrency = globalCurrency.currencies[globalCurrency.selectedIndex],
+        sort = sort.list
+    )
 
     LazyColumn{
         item{
