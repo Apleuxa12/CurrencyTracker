@@ -39,7 +39,7 @@ fun GlobalCurrencyScreen(
             .fillMaxWidth()
     ) {
         Spacer(Modifier.weight(1f))
-        DropDownCurrency(globalViewModel, modifier = Modifier.weight(8f))
+        CurrenciesDropDown(globalViewModel, modifier = Modifier.weight(8f))
         Spacer(Modifier.weight(1f))
         SortButton(
             navController, modifier = Modifier
@@ -50,7 +50,7 @@ fun GlobalCurrencyScreen(
 }
 
 @Composable
-fun DropDownCurrency(globalViewModel: GlobalViewModel, modifier: Modifier = Modifier) {
+fun CurrenciesDropDown(globalViewModel: GlobalViewModel, modifier: Modifier = Modifier) {
     val state by globalViewModel.state.collectAsState()
 
     var expanded by remember { mutableStateOf(false) }

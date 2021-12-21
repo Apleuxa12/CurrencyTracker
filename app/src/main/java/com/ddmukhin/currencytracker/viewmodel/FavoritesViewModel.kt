@@ -6,8 +6,11 @@ import arrow.core.Either
 import com.ddmukhin.currencytracker.data.remote.CurrencyRepository
 import com.ddmukhin.currencytracker.data.persistence.PersistenceRepository
 import com.ddmukhin.currencytracker.ui.model.CurrencyItem
+import com.ddmukhin.currencytracker.ui.model.SortItem
+import com.ddmukhin.currencytracker.ui.model.sorted
 import com.ddmukhin.currencytracker.utils.getStateAs
 import com.ddmukhin.currencytracker.viewmodel.state.FavoritesCurrencyState
+import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,6 +37,16 @@ class FavoritesViewModel @Inject constructor(
 
             _state.value = FavoritesCurrencyState.Success(favorites)
         }
+    }
+
+    fun <T : Comparable<T>> applySort(sortItem: SortItem<T>) {
+        _state.getStateAsSuccess()?.let { current ->
+            _state.value = current.copy(list = current.list.sorted(sortItem))
+        }
+    }
+
+    fun removeFromFavorites(item: CurrencyItem){
+
     }
 
     fun updateValues(globalCurrency: CurrencyItem) {
