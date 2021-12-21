@@ -17,22 +17,24 @@ import com.ddmukhin.currencytracker.ui.screens.PopularScreen
 import com.ddmukhin.currencytracker.ui.screens.SortScreen
 import com.ddmukhin.currencytracker.viewmodel.GlobalViewModel
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
+import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController, startDestinationSpec: ScreenSpec) {
     val globalViewModel: GlobalViewModel = hiltViewModel()
+    val sortViewModel: SortViewModel = hiltViewModel()
 
     NavHost(navController, startDestination = startDestinationSpec.route) {
         composable(PopularScreenSpec.route){
-            PopularScreen(navController, globalViewModel = globalViewModel)
+            PopularScreen(navController, globalViewModel = globalViewModel, sortViewModel = sortViewModel)
         }
 
         composable(FavoritesScreenSpec.route){
-            FavoritesScreen(navController, globalViewModel = globalViewModel)
+            FavoritesScreen(navController, globalViewModel = globalViewModel, sortViewModel = sortViewModel)
         }
 
         composable(SortScreenSpec.route){
-            SortScreen(navController)
+            SortScreen(navController, sortViewModel = sortViewModel)
         }
     }
 }
