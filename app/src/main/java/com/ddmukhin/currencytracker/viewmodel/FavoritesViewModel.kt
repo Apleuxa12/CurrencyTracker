@@ -46,7 +46,21 @@ class FavoritesViewModel @Inject constructor(
     }
 
     fun removeFromFavorites(item: CurrencyItem){
+        _state.getStateAsSuccess()?.let{ current ->
 
+            viewModelScope.launch {
+                persistenceRepository.delete(item)
+
+                val favorites = persistenceRepository.getAll()
+
+//                Not to re update whole list (???)
+                _state.value = current.copy(
+                    list = current.list.filter {
+                        favorites.contains(it)
+                    }
+                )
+            }
+        }
     }
 
     fun updateValues(globalCurrency: CurrencyItem) {

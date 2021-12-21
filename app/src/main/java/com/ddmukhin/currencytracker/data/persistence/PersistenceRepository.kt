@@ -8,4 +8,6 @@ interface PersistenceRepository {
     suspend fun getAll(): List<CurrencyItem>
 
     suspend fun insert(vararg currencies: CurrencyItem)
+
+    suspend fun delete(vararg currencies: CurrencyItem)
 }

@@ -1,6 +1,7 @@
 package com.ddmukhin.currencytracker.data.persistence.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.ddmukhin.currencytracker.data.persistence.model.Currency
@@ -13,4 +14,7 @@ interface CurrencyDao {
 
     @Insert
     suspend fun insert(vararg currencies: Currency)
+
+    @Delete
+    suspend fun delete(vararg currencies: Currency)
 }

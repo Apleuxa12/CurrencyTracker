@@ -14,6 +14,12 @@ class PersistenceRepositoryImpl(
     }
 
     override suspend fun insert(vararg currencies: CurrencyItem) {
-        return currencyDao.insert(*(currencies.map { currenciesConverter.uiToDatabase(it) }.toTypedArray()))
+        return currencyDao.insert(*(currencies.map { currenciesConverter.uiToDatabase(it) }
+            .toTypedArray()))
+    }
+
+    override suspend fun delete(vararg currencies: CurrencyItem) {
+        return currencyDao.delete(*(currencies.map { currenciesConverter.uiToDatabase(it) }
+            .toTypedArray()))
     }
 }
