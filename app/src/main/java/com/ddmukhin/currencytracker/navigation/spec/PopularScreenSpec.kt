@@ -9,11 +9,4 @@ import com.ddmukhin.currencytracker.utils.toJson
 
 object PopularScreenSpec : ScreenSpec {
     override val route = "popular"
-
-    @Composable
-    override fun Content(navController: NavController, navBackStackEntry: NavBackStackEntry) {
-        PopularScreen(
-            navController
-        )
-    }
 }

@@ -22,30 +22,34 @@ class GlobalViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository
 ) : ViewModel(), ViewModelContract<GlobalCurrencyState> {
 
+    companion object {
+        const val MAX_SIZE = 10
+    }
+
+    private val baseCurrency = CurrencyItem(name = "Euro", base = "EUR")
+
     private val _state = MutableStateFlow(
         GlobalCurrencyState(
-            CurrencyItem(name = "Euro", base = "EUR"),
-            emptyList()
+            0,
+            listOf(
+                baseCurrency
+            )
         )
     )
 
     override val state: StateFlow<GlobalCurrencyState> = _state.asStateFlow()
 
-    init{
+    init {
         loadInitialCurrencies()
     }
 
-    fun updateGlobalCurrencyItem(globalCurrency: CurrencyItem) {
-        _state.value = _state.value.copy(globalCurrency = globalCurrency)
+    fun updateGlobalCurrencyIndex(index: Int) {
+        _state.value = _state.value.copy(selectedIndex = index)
     }
 
-    private fun loadInitialCurrencies(){
+    fun loadInitialCurrencies() {
         viewModelScope.launch {
-            val item = _state.value.globalCurrency
-
-            val response = currencyRepository.getLatestCurrencies(
-                base = item.base
-            )
+            val response = currencyRepository.getLatestCurrencies()
 
             val textsResponse = currencyRepository.getSymbolTexts()
 
@@ -54,22 +58,25 @@ class GlobalViewModel @Inject constructor(
                     it.map { response ->
                         CurrencyItem(
                             name = map[response.base] ?: response.base,
-                            base = response.base,
-                            value = response.value
+                            base = response.base
                         )
                     }
                 }
             }
 
-            when(mappedResponse){
+            when (mappedResponse) {
                 is Either.Left -> {
 //                    do nothing
                 }
 
                 is Either.Right -> {
+                    val values =
+                        mappedResponse.value.filter { it.base != baseCurrency.base }.shuffled()
+                            .take(MAX_SIZE - 1)
+
                     _state.value = GlobalCurrencyState(
-                        item,
-                        mappedResponse.value
+                        _state.value.selectedIndex,
+                        listOf(baseCurrency) + values
                     )
                 }
             }

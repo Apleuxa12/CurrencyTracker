@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -22,6 +23,7 @@ class RemoteModule {
     companion object {
         const val BASE_URL = "http://api.exchangeratesapi.io"
         const val API_KEY = "35fc0c1c0a771204f710e1de165edadf"
+        const val CONNECTION_TIMEOUT = 30L
     }
 
     @Provides
@@ -36,6 +38,7 @@ class RemoteModule {
                 return@addInterceptor chain.proceed(original.newBuilder().url(url).build())
             }
             .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
+            .connectTimeout(CONNECTION_TIMEOUT, TimeUnit.SECONDS)
             .build()
 
     @Provides

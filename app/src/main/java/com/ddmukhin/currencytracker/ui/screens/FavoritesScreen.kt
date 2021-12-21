@@ -8,11 +8,13 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
 import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 import com.ddmukhin.currencytracker.viewmodel.FavoritesViewModel
 import com.ddmukhin.currencytracker.viewmodel.GlobalViewModel
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 import com.ddmukhin.currencytracker.viewmodel.SortViewModel
+import timber.log.Timber
 
 @Composable
 fun FavoritesScreen(
@@ -21,5 +23,5 @@ fun FavoritesScreen(
     globalViewModel: GlobalViewModel = hiltViewModel(),
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
-
+    GlobalCurrencyScreen(globalViewModel)
 }

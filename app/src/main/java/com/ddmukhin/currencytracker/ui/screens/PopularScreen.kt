@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.navigation.spec.FavoritesScreenSpec
+import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 import com.ddmukhin.currencytracker.ui.model.SortItem
 import com.ddmukhin.currencytracker.ui.model.SortSubItem
 import com.ddmukhin.currencytracker.ui.model.SortSubType
@@ -17,6 +18,7 @@ import com.ddmukhin.currencytracker.viewmodel.GlobalViewModel
 import com.ddmukhin.currencytracker.viewmodel.PopularViewModel
 import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
+import timber.log.Timber
 
 @Composable
 fun PopularScreen(
@@ -25,5 +27,5 @@ fun PopularScreen(
     globalViewModel: GlobalViewModel = hiltViewModel(),
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
-    GlobalCurrencyScreen(globalViewModel = globalViewModel)
+    GlobalCurrencyScreen(globalViewModel)
 }

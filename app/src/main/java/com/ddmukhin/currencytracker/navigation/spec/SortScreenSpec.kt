@@ -8,9 +8,4 @@ import com.ddmukhin.currencytracker.viewmodel.SortViewModel
 
 object SortScreenSpec : ScreenSpec {
     override val route = "sort"
-
-    @Composable
-    override fun Content(navController: NavController, navBackStackEntry: NavBackStackEntry) {
-        SortScreen(navController)
-    }
 }

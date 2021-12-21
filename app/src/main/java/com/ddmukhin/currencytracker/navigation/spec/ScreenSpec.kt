@@ -22,10 +22,4 @@ sealed interface ScreenSpec{
 
     val deepLinks: List<NavDeepLink> get() = emptyList()
 
-    @Composable
-    fun Content(
-        navController: NavController,
-        navBackStackEntry: NavBackStackEntry
-    )
-
 }

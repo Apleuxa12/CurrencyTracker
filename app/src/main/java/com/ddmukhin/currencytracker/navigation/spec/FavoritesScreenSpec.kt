@@ -9,9 +9,4 @@ import com.ddmukhin.currencytracker.viewmodel.FavoritesViewModel
 
 object FavoritesScreenSpec : ScreenSpec {
     override val route = "favorites"
-
-    @Composable
-    override fun Content(navController: NavController, navBackStackEntry: NavBackStackEntry) {
-        FavoritesScreen(navController)
-    }
 }
