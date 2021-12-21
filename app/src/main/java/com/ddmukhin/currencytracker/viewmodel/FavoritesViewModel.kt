@@ -12,6 +12,7 @@ import com.ddmukhin.currencytracker.utils.getStateAs
 import com.ddmukhin.currencytracker.viewmodel.state.FavoritesCurrencyState
 import com.ddmukhin.currencytracker.viewmodel.state.PopularCurrencyState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -53,7 +54,6 @@ class FavoritesViewModel @Inject constructor(
 
                 val favorites = persistenceRepository.getAll()
 
-//                Not to re update whole list (???)
                 _state.value = current.copy(
                     list = current.list.filter {
                         favorites.contains(it)
@@ -63,7 +63,7 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    fun updateValues(globalCurrency: CurrencyItem) {
+    fun updateWithGlobalCurrency(globalCurrency: CurrencyItem) {
         _state.getStateAsSuccess()?.let { current ->
 
             viewModelScope.launch {

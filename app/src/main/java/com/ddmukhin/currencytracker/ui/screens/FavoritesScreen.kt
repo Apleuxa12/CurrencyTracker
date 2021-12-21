@@ -28,6 +28,13 @@ fun FavoritesScreen(
     sortViewModel: SortViewModel = hiltViewModel()
 ) {
     val favorites by favoritesViewModel.state.collectAsState()
+    val sortState by sortViewModel.state.collectAsState()
+
+    sortState.list.forEach {
+        favoritesViewModel.applySort(it)
+    }
+
+    favoritesViewModel.loadFavorites()
 
     LazyColumn{
         item{
@@ -45,7 +52,7 @@ fun FavoritesScreen(
             is FavoritesCurrencyState.Success -> {
                 items(state.list){ item ->
                     CurrencyItemScreen(item = item, onFavoriteClick = {
-
+                        if(it.isFavorite) favoritesViewModel.removeFromFavorites(it)
                     })
                 }
             }
