@@ -6,11 +6,16 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.ddmukhin.currencytracker.navigation.spec.PopularScreenSpec
 import com.ddmukhin.currencytracker.viewmodel.FavoritesViewModel
@@ -25,16 +30,29 @@ fun FavoritesScreen(
     navController: NavController,
     favoritesViewModel: FavoritesViewModel = hiltViewModel(),
     globalViewModel: GlobalViewModel = hiltViewModel(),
-    sortViewModel: SortViewModel = hiltViewModel()
+    sortViewModel: SortViewModel = hiltViewModel(),
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     val favorites by favoritesViewModel.state.collectAsState()
     val globalCurrency by globalViewModel.state.collectAsState()
     val sort by sortViewModel.state.collectAsState()
+    
+    DisposableEffect(LocalLifecycleOwner.current){
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_START) {
+                favoritesViewModel.updateWithGlobalCurrency(
+                    globalCurrency = globalCurrency.currencies[globalCurrency.selectedIndex],
+                    sort = sort.list
+                )
+            }
+        }
 
-    favoritesViewModel.updateWithGlobalCurrency(
-        globalCurrency = globalCurrency.currencies[globalCurrency.selectedIndex],
-        sort = sort.list
-    )
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     LazyColumn{
         item{

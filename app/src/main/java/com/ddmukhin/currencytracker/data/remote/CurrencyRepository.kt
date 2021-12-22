@@ -6,7 +6,7 @@ import com.ddmukhin.currencytracker.ui.model.ErrorItem
 
 interface CurrencyRepository {
 
-    suspend fun getLatestCurrencies(base: String = "EUR", symbols: List<String> = listOf()): Either<ErrorItem, List<CurrencyItemResponse>>
+    suspend fun getLatestCurrencies(base: String = "EUR", symbols: String = ""): Either<ErrorItem, List<CurrencyItemResponse>>
 
     suspend fun getSymbolTexts(): Either<ErrorItem, Map<String, String>>
 

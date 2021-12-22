@@ -16,7 +16,7 @@ class CurrencyRepositoryImpl(
 ) : CurrencyRepository {
     override suspend fun getLatestCurrencies(
         base: String,
-        symbols: List<String>
+        symbols: String
     ): Either<ErrorItem, List<CurrencyItemResponse>> {
         return try {
             currenciesConverter.latestToUi(currencyService.latest(base, symbols))

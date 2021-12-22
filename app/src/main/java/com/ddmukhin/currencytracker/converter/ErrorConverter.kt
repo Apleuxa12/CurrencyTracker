@@ -10,4 +10,6 @@ interface ErrorConverter {
     fun baseErrorToUi(error: BaseError): ErrorItem
 
     fun mapRemoteExceptionToUi(e: Exception) = baseErrorToUi(mapRemoteException(e))
+
+    fun errorStringBodyToBaseError(errorBody: String): BaseError
 }

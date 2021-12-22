@@ -3,6 +3,7 @@ package com.ddmukhin.currencytracker.converter.impl
 import com.ddmukhin.currencytracker.converter.ErrorConverter
 import com.ddmukhin.currencytracker.data.remote.model.response.base.BaseError
 import com.ddmukhin.currencytracker.ui.model.ErrorItem
+import com.ddmukhin.currencytracker.utils.fromJson
 import okio.IOException
 import retrofit2.HttpException
 
@@ -24,4 +25,9 @@ object ErrorConverterImpl : ErrorConverter {
         return ErrorItem(msg)
     }
 
+    override fun errorStringBodyToBaseError(errorBody: String): BaseError = errorBody.fromJson<BaseErrorRoot>().error
+
+    data class BaseErrorRoot(
+        val error: BaseError
+    )
 }

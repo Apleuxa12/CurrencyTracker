@@ -55,7 +55,8 @@ class FavoritesViewModel @Inject constructor(
             val favorites = persistenceRepository.getAll()
 
             val currencies = currencyRepository.getLatestCurrencies(
-                base = globalCurrency.base
+                base = globalCurrency.base,
+                symbols = favorites.joinToString(separator = ",") { it.base }
             )
 
             when (currencies) {
@@ -63,9 +64,6 @@ class FavoritesViewModel @Inject constructor(
 //                        do nothing
                 }
                 is Either.Right -> {
-                    Timber.d(favorites.toString())
-                    Timber.d(currencies.toString())
-
                     favorites.forEach { item ->
                         item.value = currencies.value.find { response ->
                             response.base == item.base

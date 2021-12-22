@@ -11,7 +11,7 @@ interface CurrencyService {
     @GET("/v1/latest")
     suspend fun latest(
         @Query("base") base: String,
-        @Query("symbols") symbols: List<String>
+        @Query("symbols") symbols: String
     ): Response<LatestCurrenciesResponse>
 
     @GET("/v1/symbols")
