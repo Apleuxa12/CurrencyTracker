@@ -31,8 +31,13 @@ class PopularViewModel @Inject constructor(
 
     override val state: StateFlow<PopularCurrencyState> = _state.asStateFlow()
 
+    private var cachedCurrencyItem: CurrencyItem? = null
+
     fun updateWithGlobalCurrencyItem(currencyItem: CurrencyItem, sort: List<SortItem<*>>) {
-        _state.value = PopularCurrencyState.Loading
+        if (cachedCurrencyItem == null || cachedCurrencyItem!!.base != currencyItem.base) {
+            _state.value = PopularCurrencyState.Loading
+        }
+        cachedCurrencyItem = currencyItem
 
         viewModelScope.launch {
             val response = currencyRepository.getLatestCurrencies(

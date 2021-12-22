@@ -31,6 +31,8 @@ class FavoritesViewModel @Inject constructor(
 
     override val state: StateFlow<FavoritesCurrencyState> = _state.asStateFlow()
 
+    private var cachedCurrencyItem: CurrencyItem? = null
+
     fun removeFromFavorites(item: CurrencyItem) {
         _state.getStateAsSuccess()?.let { current ->
 
@@ -47,7 +49,9 @@ class FavoritesViewModel @Inject constructor(
     }
 
     fun updateWithGlobalCurrency(globalCurrency: CurrencyItem, sort: List<SortItem<*>>) {
-        _state.value = FavoritesCurrencyState.Loading
+        if (cachedCurrencyItem == null || cachedCurrencyItem!!.base != globalCurrency.base) {
+            _state.value = FavoritesCurrencyState.Loading
+        }
 
         viewModelScope.launch {
             val favorites = persistenceRepository.getAll()

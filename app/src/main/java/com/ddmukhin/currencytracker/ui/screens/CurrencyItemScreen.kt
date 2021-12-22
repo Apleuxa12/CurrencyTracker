@@ -22,10 +22,15 @@ fun CurrencyItemScreen(
     onFavoriteClick: (CurrencyItem) -> Unit,
     textStyle: TextStyle = MaterialTheme.typography.h5
 ) {
+    val valueText = if (item.value > 0.0) "%.2f".format(item.value) else ""
+
+    val itemText = "${if (item.name.length + valueText.length < 30) item.name else item.base} $valueText"
+
     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
         ScalableText(
-            text = "${item.name} ${if (item.value > 0.0) "%.2f".format(item.value) else ""}",
-            step = 0.1
+            text = itemText,
+            step = 0.1,
+            modifier = Modifier.wrapContentWidth()
         )
 
         Box(

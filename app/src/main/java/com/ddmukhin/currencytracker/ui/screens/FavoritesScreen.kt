@@ -36,23 +36,11 @@ fun FavoritesScreen(
     val favorites by favoritesViewModel.state.collectAsState()
     val globalCurrency by globalViewModel.state.collectAsState()
     val sort by sortViewModel.state.collectAsState()
-    
-    DisposableEffect(LocalLifecycleOwner.current){
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_START) {
-                favoritesViewModel.updateWithGlobalCurrency(
-                    globalCurrency = globalCurrency.currencies[globalCurrency.selectedIndex],
-                    sort = sort.list
-                )
-            }
-        }
 
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
+    favoritesViewModel.updateWithGlobalCurrency(
+        globalCurrency = globalCurrency.currencies[globalCurrency.selectedIndex],
+        sort = sort.list
+    )
 
     LazyColumn{
         item{

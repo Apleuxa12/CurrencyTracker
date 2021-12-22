@@ -38,22 +38,10 @@ fun PopularScreen(
     val globalCurrency by globalViewModel.state.collectAsState()
     val sort by sortViewModel.state.collectAsState()
 
-    DisposableEffect(LocalLifecycleOwner.current){
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_START) {
-                popularViewModel.updateWithGlobalCurrencyItem(
-                    currencyItem = globalCurrency.currencies[globalCurrency.selectedIndex],
-                    sort = sort.list
-                )
-            }
-        }
-
-        lifecycleOwner.lifecycle.addObserver(observer)
-
-        onDispose {
-            lifecycleOwner.lifecycle.removeObserver(observer)
-        }
-    }
+    popularViewModel.updateWithGlobalCurrencyItem(
+        currencyItem = globalCurrency.currencies[globalCurrency.selectedIndex],
+        sort = sort.list
+    )
 
     LazyColumn {
         item {
