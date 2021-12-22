@@ -31,8 +31,8 @@ class FavoritesViewModel @Inject constructor(
 
     override val state: StateFlow<FavoritesCurrencyState> = _state.asStateFlow()
 
-    fun removeFromFavorites(item: CurrencyItem){
-        _state.getStateAsSuccess()?.let{ current ->
+    fun removeFromFavorites(item: CurrencyItem) {
+        _state.getStateAsSuccess()?.let { current ->
 
             viewModelScope.launch {
                 persistenceRepository.delete(item)
@@ -40,9 +40,7 @@ class FavoritesViewModel @Inject constructor(
                 val favorites = persistenceRepository.getAll()
 
                 _state.value = current.copy(
-                    list = current.list.filter {
-                        favorites.contains(it)
-                    }
+                    list = current.list.filter { item -> favorites.map { it.base }.contains(item.base) }
                 )
             }
         }
