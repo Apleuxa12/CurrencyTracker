@@ -66,11 +66,11 @@ class PopularViewModel @Inject constructor(
                     }
 
                     _state.value = PopularCurrencyState.Success(values)
+
+                    updateFavorites()
                 }
             }
         }
-
-        updateFavorites()
     }
 
     fun addToFavorite(item: CurrencyItem) {
@@ -108,16 +108,18 @@ class PopularViewModel @Inject constructor(
         }
     }
 
-    fun updateFavorites() {
+    private fun updateFavorites() {
         _state.getStateAsSuccess()?.let { current ->
             viewModelScope.launch {
                 val favorites = persistenceRepository.getAll()
 
-                current.popularCurrencies.forEach { item ->
-                    item.isFavorite = favorites.map { it.base }.contains(item.base)
-                }
-
-                _state.value = current
+                _state.value = current.copy(
+                    popularCurrencies = current.popularCurrencies.map { item ->
+                        if (favorites.find {
+                                it.base == item.base
+                            } == null) item else item.copy(isFavorite = true)
+                    }
+                )
             }
         }
     }
